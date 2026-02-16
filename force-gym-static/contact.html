@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Force Gym - Contact</title>
+  <meta name="description" content="">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/pages.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <div id="site-navbar"></div>
+  <main id="main-content" class="main-content">
+    <section class="page-header">
+      <div class="container">
+        <h1 data-i18n="nav.contact">Contact</h1>
+      </div>
+    </section>
+    <section class="section contact-info">
+      <div class="container">
+        <div class="contact-card">
+          <p><strong data-i18n="address">Address:</strong> <span data-i18n="address">14 Al-Maqrizi St...</span></p>
+          <p><strong>Phone:</strong> <a href="tel:+201112622236" id="contact-phone">0111 262 2236</a></p>
+          <div class="contact-actions">
+            <a href="tel:+201112622236" class="btn btn-primary" data-i18n="cta.call">Call</a>
+            <a href="https://wa.me/201112622236" class="btn btn-secondary" data-i18n="cta.whatsapp">WhatsApp</a>
+            <a href="https://maps.app.goo.gl/ax5f4AxrrgCCwmgMA" class="btn btn-outline" data-i18n="cta.directions">Directions</a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="section contact-form-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">Message</span>
+          <h2 data-i18n="nav.contact">Send us a message</h2>
+        </div>
+        <form id="contactForm" class="contact-form">
+          <div class="form-group">
+            <label for="name" data-i18n="contact.nameLabel">Name</label>
+            <input type="text" id="name" name="name" required minlength="2">
+          </div>
+          <div class="form-group">
+            <label for="phone" data-i18n="contact.phoneLabel">Phone</label>
+            <input type="tel" id="phone" name="phone" required pattern="01[0-9]{9}" title="Egyptian mobile number (11 digits starting with 01)">
+          </div>
+          <div class="form-group">
+            <label for="goal" data-i18n="contact.goalLabel">Goal (optional)</label>
+            <textarea id="goal" name="goal" rows="3"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" data-i18n="contact.submit">Send message</button>
+        </form>
+      </div>
+    </section>
+  </main>
+  <div id="site-footer"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/form.js"></script>
+</body>
+</html>

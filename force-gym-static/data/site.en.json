@@ -1,0 +1,69 @@
+{
+  "siteName": "Force Gym",
+  "tagline": "WITH FORCE YOU CAN BE PART OF THE ELITE.",
+  "heroSubtext": "Visit us in Heliopolis. Contact us for details.",
+  "address": "14 Al-Maqrizi St (المقريزي), Manshiyet el Bakri, Heliopolis (Masr El Gedida), Cairo 11774, Egypt",
+  "phone": "01112622236",
+  "phoneFormatted": "0111 262 2236",
+  "whatsappLink": "https://wa.me/201112622236",
+  "mapsLink": "https://maps.app.goo.gl/ax5f4AxrrgCCwmgMA",
+  "social": {
+    "instagram": "https://www.instagram.com/forcegymeg/",
+    "facebook": "https://www.facebook.com/forcegymegy/"
+  },
+  "nav": {
+    "home": "Home",
+    "programs": "Programs",
+    "facilities": "Facilities",
+    "schedule": "Schedule",
+    "contact": "Contact"
+  },
+  "cta": {
+    "call": "Call",
+    "whatsapp": "WhatsApp",
+    "directions": "Directions",
+    "details": "Contact for details",
+    "copyPhone": "Copy phone",
+    "copyAddress": "Copy address",
+    "copied": "Copied!"
+  },
+  "programs": {
+    "pt": "Personal Training",
+    "spinning": "Spinning (60 minutes)",
+    "yoga": "Yoga"
+  },
+  "facilityNames": {
+    "weights": "Weights/Iron Area",
+    "cardio": "Cardio",
+    "fitnessClasses": "Fitness Classes",
+    "sauna": "Sauna",
+    "jacuzzi": "Jacuzzi",
+    "lockers": "Private Lockers",
+    "showers": "Showers"
+  },
+  "footer": {
+    "quickLinks": "Quick Links",
+    "contactInfo": "Contact",
+    "followUs": "Follow Us",
+    "copyright": "© {year} Force Gym. All rights reserved."
+  },
+  "contact": {
+    "nameLabel": "Name",
+    "phoneLabel": "Phone",
+    "goalLabel": "Goal (optional)",
+    "submit": "Send message",
+    "successToast": "Message sent (demo)"
+  },
+  "lead": {
+    "whatsappMessage": "Hello Force Gym, I'm interested in your services. Name: {name}, Phone: {phone}, Goal: {goal}"
+  },
+  "flags": {
+    "showHours": false,
+    "showTestimonials": false,
+    "showGallery": false
+  },
+  "seo": {
+    "title": "Force Gym | Heliopolis, Cairo",
+    "description": "Force Gym in Heliopolis offers Personal Training, Spinning, Yoga, and facilities like weights, cardio, sauna, jacuzzi."
+  }
+}
