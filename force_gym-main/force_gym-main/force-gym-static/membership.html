@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Force Gym - Membership</title>
+  <meta name="description" content="">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/pages.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <div id="site-navbar"></div>
+  <main id="main-content" class="main-content">
+    <section class="page-header">
+      <div class="container">
+        <h1 data-i18n="membership.title">Exclusive Limited-Time Offers!</h1>
+      </div>
+    </section>
+
+    <!-- Pricing Cards -->
+    <section class="section membership-pricing">
+      <div class="container">
+        <div class="pricing-grid" id="pricing-grid">
+          <!-- Will be populated by JS from membership.json -->
+        </div>
+        <div class="extra-note">
+          <p class="badge" data-i18n="membership.extraNote">1 week classes for free</p>
+          <p class="limited-note" data-i18n="membership.limitedNote">Limited slots available</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Benefits per plan -->
+    <section class="section membership-benefits">
+      <div class="container">
+        <h2 data-i18n="membership.benefits">Benefits</h2>
+        <div class="benefits-grid" id="benefits-grid">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Request Form -->
+    <section class="section request-section">
+      <div class="container">
+        <div class="request-card card">
+          <h2 data-i18n="membership.requestForm.title">Request this offer</h2>
+          <form id="membershipForm" class="request-form">
+            <div class="form-group">
+              <label for="req-name" data-i18n="membership.requestForm.name">Name</label>
+              <input type="text" id="req-name" name="name" required minlength="2">
+            </div>
+            <div class="form-group">
+              <label for="req-phone" data-i18n="membership.requestForm.phone">Phone</label>
+              <input type="tel" id="req-phone" name="phone" required pattern="01[0-9]{9}" title="Egyptian mobile number (11 digits starting with 01)">
+            </div>
+            <div class="form-group">
+              <label for="req-plan" data-i18n="membership.requestForm.plan">Select plan</label>
+              <select id="req-plan" name="plan" required>
+                <option value="">-- Select --</option>
+                <!-- Populated by JS -->
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="req-note" data-i18n="membership.requestForm.note">Note (optional)</label>
+              <textarea id="req-note" name="note" rows="2"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" data-i18n="membership.requestForm.submit">Request via WhatsApp</button>
+          </form>
+        </div>
+        <p class="disclaimer" data-i18n="membership.disclaimer">Offers may change. Contact Force Gym to confirm availability.</p>
+      </div>
+    </section>
+
+    <!-- Contact CTA -->
+    <section class="section contact-cta">
+      <div class="container">
+        <div class="contact-buttons">
+          <a href="tel:+201112622236" class="btn btn-primary" data-i18n="cta.call">Call 0111 262 2236</a>
+          <a href="tel:+201080005580" class="btn btn-primary" data-i18n="cta.call">Call 0108 000 5580</a>
+          <a href="https://wa.me/201112622236" class="btn btn-secondary" data-i18n="cta.whatsapp">WhatsApp 0111 262 2236</a>
+          <a href="https://wa.me/201080005580" class="btn btn-secondary" data-i18n="cta.whatsapp">WhatsApp 0108 000 5580</a>
+          <a href="https://maps.app.goo.gl/ax5f4AxrrgCCwmgMA" class="btn btn-outline" data-i18n="cta.directions">Directions</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <div id="site-footer"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/form.js"></script>
+  <script>
+    // Load membership data and render
+    (async function() {
+      const membershipData = await fetch('data/membership.json').then(r => r.json());
+      const plans = membershipData.plans;
+      const pricingGrid = document.getElementById('pricing-grid');
+      const benefitsGrid = document.getElementById('benefits-grid');
+      const planSelect = document.getElementById('req-plan');
+
+      if (pricingGrid) {
+        pricingGrid.innerHTML = plans.map(plan => `
+          <div class="pricing-card card">
+            <span class="badge" data-i18n="membership.badge">Limited-time offers</span>
+            <h3>${plan.name}</h3>
+            <div class="price">
+              <span class="now">${plan.now} <span data-i18n="membership.egp">EGP</span></span>
+              <span class="was">${plan.was} <span data-i18n="membership.egp">EGP</span></span>
+            </div>
+            ${plan.benefits && plan.benefits.length ? `<p class="benefits-summary">${plan.benefits.join(' · ')}</p>` : ''}
+          </div>
+        `).join('');
+      }
+
+      if (benefitsGrid) {
+        benefitsGrid.innerHTML = plans.map(plan => `
+          <div class="benefit-card card">
+            <h3>${plan.name}</h3>
+            <ul class="benefits-list">
+              ${plan.benefits.map(b => `<li>${b}</li>`).join('')}
+            </ul>
+          </div>
+        `).join('');
+      }
+
+      if (planSelect) {
+        planSelect.innerHTML = '<option value="">-- Select --</option>' + plans.map((plan, index) => `<option value="${index}">${plan.name} - ${plan.now} EGP</option>`).join('');
+      }
+
+      // Store plans in window for form submission
+      window.membershipPlans = plans;
+    })();
+  </script>
+</body>
+</html>

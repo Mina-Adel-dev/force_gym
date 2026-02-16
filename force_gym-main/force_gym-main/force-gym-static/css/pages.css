@@ -85,6 +85,18 @@ video:not([src]) ~ .hero-fallback {
   flex-wrap: wrap;
 }
 
+/* About section */
+.about-content {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.about-content p {
+  font-size: 1.125rem;
+  margin-bottom: var(--spacing-md);
+}
+
 /* Programs preview */
 .programs-preview .card {
   text-align: center;
@@ -125,6 +137,53 @@ video:not([src]) ~ .hero-fallback {
 .facility-item span {
   font-size: 0.9rem;
   font-weight: 500;
+}
+
+/* Membership section */
+.membership-content {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.membership-content p {
+  font-size: 1.125rem;
+  margin-bottom: var(--spacing-md);
+}
+
+/* Gallery section */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--spacing-sm);
+}
+
+.gallery-placeholder {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: var(--spacing-lg);
+  background-color: var(--surface-0);
+  border-radius: var(--border-radius);
+  border: 2px dashed var(--border-soft);
+  color: var(--text-1);
+}
+
+.gallery-item {
+  aspect-ratio: 1 / 1;
+  border-radius: var(--border-radius-sm);
+  overflow: hidden;
+  background-color: var(--surface-1);
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition);
+}
+
+.gallery-item:hover img {
+  transform: scale(1.05);
 }
 
 /* Location */
@@ -202,4 +261,21 @@ video:not([src]) ~ .hero-fallback {
   .contact-actions .btn {
     width: 100%;
   }
+}
+/* already includes needed styles, but we can add membership-specific */
+.membership-pricing {
+  background-color: var(--bg-1);
+}
+
+.membership-benefits h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.request-section {
+  background-color: var(--bg-1);
+}
+
+.contact-cta {
+  text-align: center;
 }

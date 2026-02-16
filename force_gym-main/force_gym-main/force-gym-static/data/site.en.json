@@ -1,0 +1,155 @@
+{
+  "siteName": "Force Gym",
+  "tagline": "WITH FORCE YOU CAN BE PART OF THE ELITE.",
+  "heroSubtext": "Visit us in Heliopolis. Contact us for details.",
+  "address": "14 Al-Maqrizi St (المقريزي), Manshiyet el Bakri, Heliopolis (Masr El Gedida), Cairo 11774, Egypt",
+  "phone": "01112622236",
+  "phoneFormatted": "0111 262 2236",
+  "phone2": "01080005580",
+  "phone2Formatted": "0108 000 5580",
+  "whatsappLink": "https://wa.me/201112622236",
+  "whatsappLink2": "https://wa.me/201080005580",
+  "mapsLink": "https://maps.app.goo.gl/ax5f4AxrrgCCwmgMA",
+  "social": {
+    "instagram": "https://www.instagram.com/forcegymeg/",
+    "facebook": "https://www.facebook.com/forcegymegy/"
+  },
+  "nav": {
+    "home": "Home",
+    "programs": "Programs",
+    "facilities": "Facilities",
+    "schedule": "Schedule",
+    "contact": "Contact",
+    "about": "About",
+    "gallery": "Gallery",
+    "membership": "Membership",
+    "signin": "Sign In",
+    "signup": "Sign Up"
+  },
+  "cta": {
+    "call": "Call",
+    "whatsapp": "WhatsApp",
+    "directions": "Directions",
+    "details": "Contact for details",
+    "copyPhone": "Copy phone",
+    "copyAddress": "Copy address",
+    "copied": "Copied!",
+    "learnMore": "Learn More",
+    "contactUs": "Contact Us"
+  },
+  "programs": {
+    "pt": "Personal Training",
+    "spinning": "Spinning (60 minutes)",
+    "yoga": "Yoga"
+  },
+  "facilityNames": {
+    "weights": "Weights/Iron Area",
+    "cardio": "Cardio",
+    "fitnessClasses": "Fitness Classes",
+    "sauna": "Sauna",
+    "jacuzzi": "Jacuzzi",
+    "lockers": "Private Lockers",
+    "showers": "Showers"
+  },
+  "about": {
+    "title": "About Force Gym",
+    "content": "Force Gym is located in Heliopolis, Cairo. We offer a range of fitness programs and premium facilities. Contact us for details.",
+    "hero": "About Force Gym",
+    "whatWeOffer": "What We Offer",
+    "facilities": "Our Facilities",
+    "contactCTA": "Get in touch"
+  },
+  "why": {
+    "title": "Why Choose Us",
+    "reasons": [
+      {
+        "title": "Strength Area",
+        "description": "Dedicated weights and iron area"
+      },
+      {
+        "title": "Cardio Zone",
+        "description": "Modern cardio equipment"
+      },
+      {
+        "title": "Group Classes",
+        "description": "Spinning, Yoga & more"
+      },
+      {
+        "title": "Recovery Zone",
+        "description": "Sauna & Jacuzzi"
+      }
+    ]
+  },
+  "membership": {
+    "title": "Exclusive Limited-Time Offers!",
+    "badge": "Limited-time offers",
+    "now": "Now",
+    "insteadOf": "Instead of",
+    "egp": "EGP",
+    "benefits": "Benefits",
+    "guestInvitations": "guest invitations",
+    "ptSession": "PT session",
+    "freeze": "freeze",
+    "upgrade": "upgrade",
+    "extraNote": "1 week classes for free",
+    "limitedNote": "Limited slots available",
+    "requestForm": {
+      "title": "Request this offer",
+      "name": "Name",
+      "phone": "Phone",
+      "plan": "Select plan",
+      "note": "Note (optional)",
+      "submit": "Request via WhatsApp",
+      "successToast": "Opening WhatsApp..."
+    },
+    "disclaimer": "Offers may change. Contact Force Gym to confirm availability."
+  },
+  "auth": {
+    "signin": {
+      "title": "Sign In",
+      "subtitle": "Welcome back",
+      "phoneOrEmail": "Phone or Email",
+      "password": "Password",
+      "submit": "Sign In",
+      "noAccount": "Don't have an account?",
+      "signUpLink": "Sign Up",
+      "showPassword": "Show",
+      "hidePassword": "Hide",
+      "whatsappMessage": "Hi Force Gym, I want to Sign In.\nPhone/Email: {identifier}\nPassword: {password}"
+    },
+    "signup": {
+      "title": "Sign Up",
+      "subtitle": "Create your account",
+      "name": "Full Name",
+      "phone": "Phone",
+      "password": "Password",
+      "confirmPassword": "Confirm Password",
+      "terms": "I agree to the Terms and Conditions",
+      "submit": "Sign Up",
+      "haveAccount": "Already have an account?",
+      "signInLink": "Sign In",
+      "showPassword": "Show",
+      "hidePassword": "Hide",
+      "whatsappMessage": "Hi Force Gym, I want to Sign Up.\nName: {name}\nPhone: {phone}\nPassword: {password}"
+    },
+    "errors": {
+      "nameMin": "Name must be at least 2 characters",
+      "phoneInvalid": "Please enter a valid Egyptian mobile number (01xxxxxxxxx or +20...)",
+          "passwordMin": "Password must be at least 8 characters",
+    "passwordMatch": "Passwords do not match",
+    "termsRequired": "You must agree to the Terms and Conditions"
+  },
+  "flags": {
+    "showHours": false,
+    "showTestimonials": false,
+    "showGallery": true,
+    "showMembership": true
+  },
+  "seo": {
+    "title": "Force Gym | Heliopolis, Cairo",
+    "description": "Force Gym in Heliopolis offers Personal Training, Spinning, Yoga, and facilities like weights, cardio, sauna, jacuzzi. Contact us for membership.",
+    "ogImage": "assets/images/logo.jpg",
+    "ogUrl": "https://forcegymeg.com"
+  }
+}
+}

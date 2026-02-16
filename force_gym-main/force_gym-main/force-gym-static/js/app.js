@@ -11,6 +11,14 @@
   const currentLang = I18nModule.currentLang();
   await I18nModule.loadContent(currentLang);
 
+  function showToast(message) {
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    toast.textContent = message;
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 3000);
+  }
+
   function updateUI() {
     const content = I18nModule.getContent();
     if (!content) return;
@@ -39,18 +47,28 @@
     // Update phone and links
     const phone = content.phone;
     const phoneFormatted = content.phoneFormatted || phone;
+    const phone2 = content.phone2;
+    const phone2Formatted = content.phone2Formatted || phone2;
     const whatsappLink = content.whatsappLink || `https://wa.me/20${phone.slice(1)}`;
+    const whatsappLink2 = content.whatsappLink2 || `https://wa.me/20${phone2.slice(1)}`;
     const mapsLink = content.mapsLink;
 
     document.querySelectorAll('a[href^="tel:"]').forEach(a => {
       a.href = `tel:+20${phone.slice(1)}`;
     });
-    document.querySelectorAll('#cta-call, #hero-call, #footer-phone').forEach(el => {
+    document.querySelectorAll('#cta-call, #hero-call, #footer-phone, #contact-phone').forEach(el => {
       if (el.tagName === 'A') el.href = `tel:+20${phone.slice(1)}`;
-      if (el.id === 'footer-phone') el.textContent = phoneFormatted;
+      if (el.id === 'footer-phone' || el.id === 'contact-phone') el.textContent = phoneFormatted;
+    });
+    document.querySelectorAll('#footer-phone2').forEach(el => {
+      if (el.tagName === 'A') el.href = `tel:+20${phone2.slice(1)}`;
+      el.textContent = phone2Formatted;
     });
     document.querySelectorAll('#cta-whatsapp, #hero-whatsapp').forEach(a => {
       a.href = whatsappLink;
+    });
+    document.querySelectorAll('#cta-whatsapp2, #hero-whatsapp2').forEach(a => {
+      a.href = whatsappLink2;
     });
     document.querySelectorAll('#cta-directions, #hero-directions, #location-directions').forEach(a => {
       a.href = mapsLink;
@@ -68,8 +86,13 @@
     if (metaDesc) metaDesc.setAttribute('content', content.seo.description || '');
     const ogTitle = document.querySelector('meta[property="og:title"]');
     const ogDesc = document.querySelector('meta[property="og:description"]');
+    const ogUrl = document.querySelector('meta[property="og:url"]');
+    const ogImage = document.querySelector('meta[property="og:image"]');
+    
     if (ogTitle) ogTitle.setAttribute('content', content.seo.title || '');
     if (ogDesc) ogDesc.setAttribute('content', content.seo.description || '');
+    if (ogUrl) ogUrl.setAttribute('content', content.seo.ogUrl || '');
+    if (ogImage && content.seo.ogImage) ogImage.setAttribute('content', content.seo.ogImage);
 
     // Update copyright year in footer
     const yearSpan = document.getElementById('current-year');
@@ -80,6 +103,41 @@
     if (langToggleLabel) {
       langToggleLabel.textContent = I18nModule.currentLang() === 'en' ? 'عربي' : 'EN';
     }
+
+    // Handle flag-based sections
+    const flags = content.flags || {};
+    document.querySelectorAll('[data-flag]').forEach(el => {
+      const flagName = el.getAttribute('data-flag');
+      if (!flags[flagName]) {
+        el.style.display = 'none';
+      }
+    });
+
+    // Copy buttons (including second phone)
+    const copyButtons = ['copy-phone', 'copy-address', 'copy-phone-contact', 'copy-address-contact', 'copy-phone2'];
+    copyButtons.forEach(id => {
+      const btn = document.getElementById(id);
+      if (btn) {
+        // Remove existing listener to avoid duplicates (simple approach: replace with new one)
+        const newBtn = btn.cloneNode(true);
+        btn.parentNode.replaceChild(newBtn, btn);
+        newBtn.addEventListener('click', () => {
+          if (id.includes('phone2')) {
+            navigator.clipboard.writeText(phone2Formatted).then(() => {
+              showToast(content.cta.copied || 'Copied!');
+            });
+          } else if (id.includes('phone')) {
+            navigator.clipboard.writeText(phoneFormatted).then(() => {
+              showToast(content.cta.copied || 'Copied!');
+            });
+          } else if (id.includes('address')) {
+            navigator.clipboard.writeText(content.address).then(() => {
+              showToast(content.cta.copied || 'Copied!');
+            });
+          }
+        });
+      }
+    });
   }
 
   updateUI();
@@ -112,6 +170,20 @@
   }
   setActiveNav();
 
+  // Smooth scroll for anchor links
+  document.querySelectorAll('.nav-smooth').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const targetId = link.getAttribute('href');
+      if (targetId && targetId.startsWith('#')) {
+        const target = document.querySelector(targetId);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    });
+  });
+
   // Close mobile menu on link click
   const navMenu = document.getElementById('navbar-menu');
   if (navMenu) {
@@ -140,30 +212,6 @@
       });
     }
   }
-
-  // Copy functions
-  function showToast(message) {
-    const toast = document.createElement('div');
-    toast.className = 'toast';
-    toast.textContent = message;
-    document.body.appendChild(toast);
-    setTimeout(() => toast.remove(), 3000);
-  }
-
-  document.getElementById('copy-phone')?.addEventListener('click', () => {
-    const content = I18nModule.getContent();
-    const phone = content.phoneFormatted || content.phone;
-    navigator.clipboard.writeText(phone).then(() => {
-      showToast(content.cta.copied || 'Copied!');
-    });
-  });
-
-  document.getElementById('copy-address')?.addEventListener('click', () => {
-    const content = I18nModule.getContent();
-    navigator.clipboard.writeText(content.address).then(() => {
-      showToast(content.cta.copied || 'Copied!');
-    });
-  });
 
   // Schedule page logic
   if (window.location.pathname.includes('schedule.html')) {
