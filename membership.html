@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Force Gym - Membership</title>
+  <meta name="description" content="">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <div id="site-navbar"></div>
+
+  <main id="main-content" class="main-content">
+    <section class="page-header">
+      <div class="container">
+        <h1 data-i18n="membership.title">Exclusive Limited-Time Offers!</h1>
+      </div>
+    </section>
+
+    <section class="section membership-pricing">
+      <div class="container">
+        <div class="pricing-grid" id="pricing-grid"></div>
+
+        <div class="extra-note">
+          <p class="badge" data-i18n="membership.extraNote">1 week classes for free</p>
+          <p class="limited-note" data-i18n="membership.limitedNote">Limited slots available</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section membership-benefits">
+      <div class="container">
+        <h2 data-i18n="membership.benefits">Benefits</h2>
+        <div class="benefits-grid" id="benefits-grid"></div>
+      </div>
+    </section>
+
+    <section class="section request-section">
+      <div class="container">
+        <div class="request-card card">
+          <h2 data-i18n="membership.requestForm.title">Request this offer</h2>
+
+          <form id="membershipForm" class="request-form" novalidate>
+            <div class="form-group">
+              <label for="req-name" data-i18n="membership.requestForm.name">Name</label>
+              <input type="text" id="req-name" name="name" required minlength="2" autocomplete="name">
+            </div>
+
+            <div class="form-group">
+              <label for="req-phone" data-i18n="membership.requestForm.phone">Phone</label>
+              <input type="tel" id="req-phone" name="phone" required autocomplete="tel" inputmode="tel" placeholder="01XXXXXXXXX">
+            </div>
+
+            <div class="form-group">
+              <label for="req-plan" data-i18n="membership.requestForm.plan">Select plan</label>
+              <select id="req-plan" name="plan" required>
+                <option value="">-- Select --</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="req-note" data-i18n="membership.requestForm.note">Note (optional)</label>
+              <textarea id="req-note" name="note" rows="2"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary" data-i18n="membership.requestForm.submit">
+              Request via WhatsApp
+            </button>
+          </form>
+        </div>
+
+        <p class="disclaimer" data-i18n="membership.disclaimer">
+          Offers may change. Contact Force Gym to confirm availability.
+        </p>
+      </div>
+    </section>
+
+    <section class="section contact-cta">
+      <div class="container">
+        <div class="contact-buttons">
+          <a href="tel:+201112622236" class="btn btn-primary">Call 0111 262 2236</a>
+          <a href="tel:+201080005580" class="btn btn-primary">Call 0108 000 5580</a>
+          <a href="https://wa.me/201112622236" class="btn btn-secondary">WhatsApp 0111 262 2236</a>
+          <a href="https://wa.me/201080005580" class="btn btn-secondary">WhatsApp 0108 000 5580</a>
+          <a href="https://maps.app.goo.gl/ax5f4AxrrgCCwmgMA" class="btn btn-outline" target="_blank" rel="noopener">Directions</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <!-- THIS is what enables file:// mode -->
+
+  <script src="js/main.js" defer></script>
+</body>
+</html>

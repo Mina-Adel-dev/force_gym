@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Force Gym - Sign Up</title>
+  <meta name="description" content="">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <div id="site-navbar"></div>
+  <main id="main-content" class="main-content auth-page">
+    <div class="container">
+      <div class="auth-card card fade-slide">
+        <div class="auth-header">
+          <h1 data-i18n="auth.signup.title">Sign Up</h1>
+          <p data-i18n="auth.signup.subtitle">Create your account</p>
+        </div>
+        <form id="signupForm" class="auth-form">
+          <div class="form-group">
+            <label for="fullname" data-i18n="auth.signup.name">Full Name</label>
+            <input type="text" id="fullname" name="fullname" required minlength="2">
+          </div>
+          <div class="form-group">
+            <label for="phone" data-i18n="auth.signup.phone">Phone</label>
+            <input type="tel" id="phone" name="phone" required pattern="01[0-9]{9}" title="Egyptian mobile number (11 digits starting with 01)">
+          </div>
+          <div class="form-group password-group">
+            <label for="password" data-i18n="auth.signup.password">Password</label>
+            <div class="password-input-wrapper">
+              <input type="password" id="password" name="password" required minlength="8">
+              <button type="button" class="password-toggle" aria-label="Show password" data-i18n-aria="auth.signup.showPassword">Show</button>
+            </div>
+          </div>
+          <div class="form-group password-group">
+            <label for="confirm-password" data-i18n="auth.signup.confirmPassword">Confirm Password</label>
+            <div class="password-input-wrapper">
+              <input type="password" id="confirm-password" name="confirm-password" required>
+              <button type="button" class="password-toggle" aria-label="Show password" data-i18n-aria="auth.signup.showPassword">Show</button>
+            </div>
+          </div>
+          <div class="form-group checkbox">
+            <label>
+              <input type="checkbox" id="terms" name="terms" required>
+              <span data-i18n="auth.signup.terms">I agree to the Terms and Conditions</span>
+            </label>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block" data-i18n="auth.signup.submit">Sign Up</button>
+        </form>
+        <div class="auth-footer">
+          <p data-i18n="auth.signup.haveAccount">Already have an account? <a href="signin.html" data-i18n="auth.signup.signInLink">Sign In</a></p>
+        </div>
+      </div>
+    </div>
+  </main>
+  <div id="site-footer"></div>
+
+  <script src="js/main.js" defer></script>
+</body>
+</html>

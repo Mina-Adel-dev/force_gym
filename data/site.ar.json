@@ -1,0 +1,159 @@
+{
+  "siteName": "فورس جيم",
+  "tagline": "بالقوة يمكنك أن تكون جزءًا من النخبة.",
+  "heroSubtext": "زرنا في مصر الجديدة. اتصل بنا للاستفسار.",
+  "address": "١٤ شارع المقريزي، منشية البكري، مصر الجديدة، القاهرة ١١٧٧٤، مصر",
+  "phone": "01112622236",
+  "phoneFormatted": "٠١١١ ٢٦٢ ٢٢٣٦",
+  "phone2": "01080005580",
+  "phone2Formatted": "٠١٠٨ ٠٠٠ ٥٥٨٠",
+  "whatsappLink": "https://wa.me/201112622236",
+  "whatsappLink2": "https://wa.me/201080005580",
+  "mapsLink": "https://maps.app.goo.gl/ax5f4AxrrgCCwmgMA",
+  "social": {
+    "instagram": "https://www.instagram.com/forcegymeg/",
+    "facebook": "https://www.facebook.com/forcegymegy/"
+  },
+  "nav": {
+    "home": "الرئيسية",
+    "programs": "البرامج",
+    "facilities": "المرافق",
+    "schedule": "الجدول",
+    "contact": "اتصل بنا",
+    "about": "عن الجيم",
+    "gallery": "معرض الصور",
+    "membership": "العضويات",
+    "signin": "تسجيل الدخول",
+    "signup": "إنشاء حساب"
+  },
+  "cta": {
+    "call": "اتصال",
+    "whatsapp": "واتساب",
+    "directions": "الاتجاهات",
+    "details": "اتصل للتفاصيل",
+    "copyPhone": "نسخ الرقم",
+    "copyAddress": "نسخ العنوان",
+    "copied": "تم النسخ!",
+    "learnMore": "اعرف المزيد",
+    "contactUs": "اتصل بنا"
+  },
+  "programs": {
+    "pt": "تدريب شخصي",
+    "spinning": "سبيننج (٦٠ دقيقة)",
+    "yoga": "يوجا"
+  },
+  "facilityNames": {
+    "weights": "منطقة الأوزان/الحديد",
+    "cardio": "كارديو",
+    "fitnessClasses": "فصول لياقة",
+    "sauna": "ساونا",
+    "jacuzzi": "جاكوزي",
+    "lockers": "خزائن خاصة",
+    "showers": "دش"
+  },
+  "about": {
+    "title": "عن فورس جيم",
+    "content": "يقع فورس جيم في مصر الجديدة، القاهرة. نقدم مجموعة من برامج اللياقة البدنية والمرافق المتميزة. اتصل بنا للتفاصيل.",
+    "hero": "عن فورس جيم",
+    "whatWeOffer": "ماذا نقدم",
+    "facilities": "مرافقنا",
+    "contactCTA": "تواصل معنا"
+  },
+  "why": {
+    "title": "لماذا تختارنا",
+    "reasons": [
+      {
+        "title": "منطقة القوة",
+        "description": "منطقة مخصصة للأوزان والحديد"
+      },
+      {
+        "title": "منطقة الكارديو",
+        "description": "أجهزة كارديو حديثة"
+      },
+      {
+        "title": "فصول جماعية",
+        "description": "سبيننج، يوجا والمزيد"
+      },
+      {
+        "title": "منطقة الاستشفاء",
+        "description": "ساونا وجاكوزي"
+      }
+    ]
+  },
+  "membership": {
+    "title": "عروض حصرية لفترة محدودة!",
+    "badge": "عرض لفترة محدودة",
+    "now": "الآن",
+    "insteadOf": "بدلاً من",
+    "egp": "ج.م",
+    "benefits": "المميزات",
+    "guestInvitations": "دعوات ضيوف",
+    "ptSession": "جلسة تدريب شخصي",
+    "freeze": "تجميد",
+    "upgrade": "ترقية",
+    "extraNote": "أسبوع واحد من الفصول مجاناً",
+    "limitedNote": "الأماكن محدودة",
+    "requestForm": {
+      "title": "طلب العرض",
+      "name": "الاسم",
+      "phone": "رقم الهاتف",
+      "plan": "اختر الباقة",
+      "note": "ملاحظة (اختياري)",
+      "submit": "طلب عبر واتساب",
+      "successToast": "جاري فتح واتساب..."
+    },
+    "disclaimer": "العروض قابلة للتغيير. تواصل مع فورس جيم لتأكيد التوفر."
+  },
+  "auth": {
+    "signin": {
+      "title": "تسجيل الدخول",
+      "subtitle": "مرحباً بعودتك",
+      "phoneOrEmail": "رقم الهاتف أو البريد الإلكتروني",
+      "password": "كلمة المرور",
+      "submit": "دخول",
+      "noAccount": "ليس لديك حساب؟",
+      "signUpLink": "إنشاء حساب",
+      "showPassword": "إظهار",
+      "hidePassword": "إخفاء",
+      "whatsappMessage": "مرحباً فورس جيم، أريد تسجيل الدخول.\nرقم الهاتف/البريد: {identifier}\nكلمة المرور: {password}"
+    },
+    "signup": {
+      "title": "إنشاء حساب",
+      "subtitle": "أنشئ حسابك الجديد",
+      "name": "الاسم الكامل",
+      "phone": "رقم الهاتف",
+      "password": "كلمة المرور",
+      "confirmPassword": "تأكيد كلمة المرور",
+      "terms": "أوافق على الشروط والأحكام",
+      "submit": "تسجيل",
+      "haveAccount": "لديك حساب بالفعل؟",
+      "signInLink": "تسجيل الدخول",
+      "showPassword": "إظهار",
+      "hidePassword": "إخفاء",
+      "whatsappMessage": "مرحباً فورس جيم، أريد إنشاء حساب.\nالاسم: {name}\nرقم الهاتف: {phone}\nكلمة المرور: {password}"
+    },
+    "errors": {
+      "nameMin": "الاسم يجب أن يكون على الأقل حرفين",
+      "phoneInvalid": "يرجى إدخال رقم هاتف مصري صحيح (01xxxxxxxxx أو +20...)",
+      "passwordMin": "كلمة المرور يجب أن تكون 8 أحرف على الأقل",
+      "passwordMatch": "كلمتا المرور غير متطابقتين",
+      "termsRequired": "يجب الموافقة على الشروط والأحكام"
+    }
+  },
+  "flags": {
+    "showHours": false,
+    "showTestimonials": false,
+    "showGallery": true,
+    "showMembership": true
+  },
+  "seo": {
+    "title": "فورس جيم | مصر الجديدة، القاهرة",
+    "description": "فورس جيم في مصر الجديدة يقدم تدريب شخصي، سبيننج، يوجا، ومرافق مثل الأوزان، كارديو، ساونا، جاكوزي. اتصل بنا للعضوية.",
+    "ogImage": "assets/images/logo.jpg",
+    "ogUrl": "https://forcegymeg.com"
+  },
+  "contact": {
+    "whatsappMessage": "مرحباً Force Gym، أريد الانضمام.\\nالاسم: {name}\\nرقم الهاتف: {phone}\\nالهدف: {goal}",
+    "successToast": "جاري فتح واتساب..."
+  }
+}

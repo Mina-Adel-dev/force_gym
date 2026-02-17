@@ -1,0 +1,67 @@
+{
+  "headline": "Exclusive Limited-Time Offers!",
+  "plans": [
+    {
+      "name": "15 Days",
+      "now": 500,
+      "was": 800,
+      "benefits": []
+    },
+    {
+      "name": "1 Month",
+      "now": 900,
+      "was": 1200,
+      "benefits": [
+        "2 guest invitations",
+        "1 PT session",
+        "5-day upgrade"
+      ]
+    },
+    {
+      "name": "2 Months",
+      "now": 1400,
+      "was": 1800,
+      "benefits": [
+        "3 guest invitations",
+        "1 PT session",
+        "7-day freeze",
+        "10-day upgrade"
+      ]
+    },
+    {
+      "name": "3 Months",
+      "now": 2000,
+      "was": 2500,
+      "benefits": [
+        "5 guest invitations",
+        "2 PT sessions",
+        "14-day freeze",
+        "15-day upgrade"
+      ]
+    },
+    {
+      "name": "6 Months",
+      "now": 2800,
+      "was": 3400,
+      "benefits": [
+        "8 guest invitations",
+        "1-month freeze",
+        "4 PT sessions",
+        "20-day upgrade"
+      ]
+    },
+    {
+      "name": "1 Year",
+      "now": 4500,
+      "was": 6000,
+      "benefits": [
+        "14 guest invitations",
+        "2-month freeze",
+        "6 PT sessions"
+      ]
+    }
+  ],
+  "extraNote": "1 week classes for free",
+  "limitedNote": "Limited slots available",
+  "contactNumbers": ["01112622236", "01080005580"]
+}
