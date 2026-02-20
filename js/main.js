@@ -1,5 +1,20 @@
 // main.js (enhanced) — Force Gym refined UX with professional features
 
+// Apply theme immediately to avoid flash
+(function applyInitialTheme() {
+  try {
+    let storedTheme = localStorage.getItem('force-gym-theme');
+    // migrate old values
+    if (storedTheme === 'light') storedTheme = 'carbon';
+    else if (storedTheme === 'dark' || !storedTheme) storedTheme = 'force';
+    document.documentElement.dataset.theme = storedTheme;
+    document.documentElement.style.colorScheme = 'dark';
+  } catch (e) {
+    document.documentElement.dataset.theme = 'force';
+    document.documentElement.style.colorScheme = 'dark';
+  }
+})();
+
 const DataModule = (function () {
   let contentCache = {};
   let scheduleCache = null;
@@ -238,10 +253,10 @@ function getToastRegion() {
     if (!toastRegion) {
       toastRegion = document.createElement('div');
       toastRegion.id = 'toast-region';
+      toastRegion.className = 'toast-region';
       toastRegion.setAttribute('role', 'status');
       toastRegion.setAttribute('aria-live', 'polite');
       toastRegion.setAttribute('aria-atomic', 'true');
-      toastRegion.className = 'toast';
       toastRegion.style.display = 'none';
       document.body.appendChild(toastRegion);
     }
@@ -318,7 +333,6 @@ function initPageTransitions() {
 }
 
 // ==================== Unified Scroll Handler ====================
-let rafScheduled = false;
 let lastScrollY = window.scrollY;
 let ticking = false;
 
@@ -337,7 +351,7 @@ function updateScrollUI() {
     else backToTop.classList.remove('visible');
   }
 
-  // scroll progress bar (guard against docHeight <= 0)
+  // scroll progress bar (guard against docHeight <= 0, clamp 0-100)
   const progressSpan = document.querySelector('.scroll-progress span');
   if (progressSpan) {
     const winHeight = document.documentElement.clientHeight;
@@ -345,6 +359,7 @@ function updateScrollUI() {
     let percent = 0;
     if (docHeight > 0) {
       percent = (lastScrollY / docHeight) * 100;
+      percent = Math.min(100, Math.max(0, percent));
     }
     progressSpan.style.width = percent + '%';
   }
@@ -391,14 +406,6 @@ function initBackToTop() {
 
 // ==================== Theme Toggle ====================
 function initThemeToggle() {
-  // Migrate old values
-  let stored = localStorage.getItem('force-gym-theme');
-  if (stored === 'light') stored = 'carbon';
-  else if (stored === 'dark' || !stored) stored = 'force';
-  localStorage.setItem('force-gym-theme', stored);
-  document.documentElement.dataset.theme = stored;
-  document.documentElement.style.colorScheme = 'dark';
-
   // Insert toggle in navbar before language toggle
   const navbarMenu = document.querySelector('.navbar-menu');
   if (!navbarMenu) return;
@@ -409,7 +416,8 @@ function initThemeToggle() {
   const btn = document.createElement('button');
   btn.className = 'theme-toggle';
   btn.setAttribute('aria-label', 'Toggle theme');
-  btn.innerHTML = stored === 'force'
+  const currentTheme = document.documentElement.dataset.theme || 'force';
+  btn.innerHTML = currentTheme === 'force'
     ? '<span class="icon">🔥</span> Force'
     : '<span class="icon">🌊</span> Carbon';
   btn.addEventListener('click', () => {
@@ -448,7 +456,17 @@ function setupFormValidation(formId, fields) {
       errorDiv.id = errorId;
       errorDiv.className = 'field-error';
       errorDiv.setAttribute('role', 'alert');
-      input.parentNode.insertBefore(errorDiv, input.nextSibling);
+
+      // Insert error after appropriate container
+      if (input.closest('.password-input-wrapper')) {
+        input.closest('.password-input-wrapper').insertAdjacentElement('afterend', errorDiv);
+      } else if (input.closest('.form-group.checkbox')) {
+        input.closest('.form-group.checkbox').insertAdjacentElement('afterend', errorDiv);
+      } else if (input.closest('.form-group')) {
+        input.closest('.form-group').appendChild(errorDiv);
+      } else {
+        input.parentNode.insertBefore(errorDiv, input.nextSibling);
+      }
     }
   });
 
@@ -482,8 +500,10 @@ function setupFormValidation(formId, fields) {
       errorDiv.classList.toggle('show', !isValid);
       if (!isValid) {
         input.setAttribute('aria-describedby', errorDiv.id);
+        errorDiv.setAttribute('role', 'alert');
       } else {
         input.removeAttribute('aria-describedby');
+        errorDiv.removeAttribute('role');
       }
     }
     return isValid;
@@ -581,9 +601,235 @@ function initContactForm() {
   });
 }
 
-// ==================== Other Existing Functions ====================
-// (merged from original main.js, adapted to remove duplicate scroll handlers and alerts)
+// ==================== Auth Forms (unified validation) ====================
+function initAuthForms() {
+  const signinForm = document.getElementById('signinForm');
+  const signupForm = document.getElementById('signupForm');
 
+  if (signinForm) {
+    // Use setupFormValidation for signin
+    setupFormValidation('signinForm', [
+      { id: 'identifier', required: true, minLength: 3, requiredMessage: 'Identifier is required', minLengthMessage: 'Identifier must be at least 3 characters' },
+      { id: 'password', required: true, minLength: 8, requiredMessage: 'Password is required', minLengthMessage: 'Password must be at least 8 characters' }
+    ]);
+
+    signinForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const password = signinForm.querySelector('#password');
+      if (!signinForm.__fgValidateAll()) {
+        showToast('Please fix errors');
+        const firstInvalid = signinForm.querySelector('.is-invalid');
+        if (firstInvalid) firstInvalid.focus();
+        return;
+      }
+      showToast('Sign in will be available soon');
+      if (password) password.value = '';
+    });
+  }
+
+  if (signupForm) {
+    setupFormValidation('signupForm', [
+      { id: 'fullname', required: true, minLength: 2, requiredMessage: 'Full name is required', minLengthMessage: 'Full name must be at least 2 characters' },
+      { id: 'phone', required: true, pattern: 'egypt-phone', patternMessage: 'Enter a valid Egyptian phone number (e.g., 01012345678)' },
+      { id: 'password', required: true, minLength: 8, requiredMessage: 'Password is required', minLengthMessage: 'Password must be at least 8 characters' },
+      { id: 'confirm-password', required: true, requiredMessage: 'Please confirm your password' }
+    ]);
+
+    // Add custom validator for confirm-password
+    signupForm.addEventListener('input', (e) => {
+      if (e.target.id === 'confirm-password' || e.target.id === 'password') {
+        const password = signupForm.querySelector('#password');
+        const confirm = signupForm.querySelector('#confirm-password');
+        const errorDiv = document.getElementById('error-confirm-password');
+        if (errorDiv && confirm.value && password.value !== confirm.value) {
+          confirm.classList.add('is-invalid');
+          confirm.setAttribute('aria-invalid', 'true');
+          errorDiv.textContent = 'Passwords do not match';
+          errorDiv.classList.add('show');
+          confirm.setAttribute('aria-describedby', errorDiv.id);
+          errorDiv.setAttribute('role', 'alert');
+        } else if (errorDiv && confirm.value && password.value === confirm.value) {
+          confirm.classList.remove('is-invalid');
+          confirm.setAttribute('aria-invalid', 'false');
+          errorDiv.textContent = '';
+          errorDiv.classList.remove('show');
+          confirm.removeAttribute('aria-describedby');
+          errorDiv.removeAttribute('role');
+        }
+      }
+    });
+
+    signupForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const password = signupForm.querySelector('#password');
+      const confirm = signupForm.querySelector('#confirm-password');
+      const terms = signupForm.querySelector('#terms');
+
+      // Validate confirm-password again
+      if (password.value !== confirm.value) {
+        const errorDiv = document.getElementById('error-confirm-password');
+        if (errorDiv) {
+          confirm.classList.add('is-invalid');
+          confirm.setAttribute('aria-invalid', 'true');
+          errorDiv.textContent = 'Passwords do not match';
+          errorDiv.classList.add('show');
+          confirm.setAttribute('aria-describedby', errorDiv.id);
+          errorDiv.setAttribute('role', 'alert');
+        }
+        showToast('Please fix errors');
+        confirm.focus();
+        return;
+      }
+
+      // Validate terms
+      if (terms && !terms.checked) {
+        const errorDiv = document.getElementById('error-terms') || (() => {
+          const div = document.createElement('div');
+          div.id = 'error-terms';
+          div.className = 'field-error';
+          div.setAttribute('role', 'alert');
+          terms.closest('.form-group').appendChild(div);
+          return div;
+        })();
+        errorDiv.textContent = 'You must agree to terms';
+        errorDiv.classList.add('show');
+        terms.setAttribute('aria-invalid', 'true');
+        terms.setAttribute('aria-describedby', errorDiv.id);
+        showToast('Please fix errors');
+        terms.focus();
+        return;
+      }
+
+      // Run generic validation
+      if (!signupForm.__fgValidateAll()) {
+        showToast('Please fix errors');
+        const firstInvalid = signupForm.querySelector('.is-invalid');
+        if (firstInvalid) firstInvalid.focus();
+        return;
+      }
+
+      showToast('Sign up will be available soon');
+      if (password) password.value = '';
+      if (confirm) confirm.value = '';
+    });
+  }
+}
+
+function initPasswordToggles() {
+  document.querySelectorAll('.password-toggle').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const input = btn.parentNode.querySelector('input');
+      if (!input) return;
+      const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
+      input.setAttribute('type', type);
+      btn.textContent = type === 'password' ? 'Show' : 'Hide';
+      btn.setAttribute('aria-label', type === 'password' ? 'Show password' : 'Hide password');
+    });
+  });
+}
+
+function initAuthPointerFX() {
+  const card = document.querySelector('.auth-card');
+  if (!card) return;
+  if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+
+  let rafId = null;
+  function updateSpotlight(e) {
+    if (rafId) cancelAnimationFrame(rafId);
+    rafId = requestAnimationFrame(() => {
+      const rect = card.getBoundingClientRect();
+      if (rect.width === 0) return;
+      const x = ((e.clientX - rect.left) / rect.width) * 100;
+      const y = ((e.clientY - rect.top) / rect.height) * 100;
+      card.style.setProperty('--mx', x + '%');
+      card.style.setProperty('--my', y + '%');
+      rafId = null;
+    });
+  }
+  function resetSpotlight() {
+    card.style.setProperty('--mx', '50%');
+    card.style.setProperty('--my', '30%');
+  }
+  card.addEventListener('pointermove', updateSpotlight, { passive: true });
+  card.addEventListener('pointerleave', resetSpotlight, { passive: true });
+}
+
+// ==================== Auth Ambient Effect ====================
+function initAuthAmbient() {
+  // Only on auth pages
+  const page = document.querySelector('.auth-page');
+  const card = document.querySelector('.auth-card');
+  if (!page || !card) return;
+
+  // Respect reduced motion
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  // Already exists? avoid duplicate
+  if (document.querySelector('.auth-ambient')) return;
+
+  const ambient = document.createElement('div');
+  ambient.className = 'auth-ambient';
+  ambient.setAttribute('aria-hidden', 'true');
+
+  const fragment = document.createDocumentFragment();
+  const count = 28; // more embers
+
+  for (let i = 0; i < count; i++) {
+    const ember = document.createElement('span');
+    ember.className = 'ember';
+
+    // Random values
+    const x = Math.random() * 100;                 // 0–100%
+    const dx = (Math.random() * 120) - 60;          // -60px to 60px
+    const size = Math.random() * 7 + 3;              // 3–10px
+    const blur = Math.random() * 2;                   // 0–2px
+    const opa = Math.random() * 0.6 + 0.35;           // 0.35–0.95
+    const dur = (Math.random() * 8 + 6).toFixed(1);   // 6–14s (one decimal)
+    const delay = -(Math.random() * 10 + 3).toFixed(1); // negative delay, -3 to -13s
+
+    ember.style.setProperty('--x', x);
+    ember.style.setProperty('--dx', dx);
+    ember.style.setProperty('--size', size);
+    ember.style.setProperty('--blur', blur);
+    ember.style.setProperty('--opa', opa);
+    ember.style.setProperty('--dur', dur + 's');
+    ember.style.setProperty('--delay', delay + 's');
+
+    fragment.appendChild(ember);
+  }
+
+  ambient.appendChild(fragment);
+  page.insertBefore(ambient, page.firstChild);
+}
+
+// ==================== About Hero Background ====================
+function initAboutHeroMedia() {
+  const hero = document.querySelector('.about-hero');
+  if (!hero) return;
+  const aboutImage = document.querySelector('.about-image');
+  const aboutImg = aboutImage ? aboutImage.querySelector('img') : null;
+  if (!aboutImg) return;
+
+  function setBackgroundFromImage() {
+    const src = aboutImg.currentSrc || aboutImg.src;
+    if (!src) return;
+    // Resolve absolute URL
+    const absoluteSrc = new URL(src, document.baseURI).href;
+    const imageUrl = `url("${absoluteSrc}")`;
+    hero.style.setProperty('--about-hero-image', imageUrl);
+    aboutImage.style.setProperty('--about-hero-image', imageUrl);
+    hero.classList.add('has-bg');
+  }
+
+  if (aboutImg.complete) {
+    setBackgroundFromImage();
+  } else {
+    aboutImg.addEventListener('load', setBackgroundFromImage, { once: true });
+  }
+}
+
+// ==================== Other Existing Functions ====================
 async function getMembershipData() {
   if (window.__FORCE_GYM_MEMBERSHIP__) return window.__FORCE_GYM_MEMBERSHIP__;
   const tryUrls = ["data/membership.json", "data/membership.json.txt"];
@@ -933,6 +1179,9 @@ function initSmoothScroll() {
 
 // ==================== Enhanced Init ====================
 (async function init() {
+  // Page transitions first
+  initPageTransitions();
+
   await ComponentsModule.injectPartials();
 
   ComponentsModule.initMobileMenu();
@@ -950,7 +1199,18 @@ function initSmoothScroll() {
   initMembershipForm();
   initContactForm();
 
-  // Features that rely on scroll (but we'll use unified scroll)
+  // Auth forms (unified validation)
+  initAuthForms();
+  initPasswordToggles();
+  initAuthPointerFX();
+
+  // New ambient effect for auth pages
+  initAuthAmbient();
+
+  // About hero background enhancement
+  initAboutHeroMedia();
+
+  // Features that rely on scroll
   initBackToTop();
   injectScrollProgress();
   initScrollSpy();
@@ -963,14 +1223,11 @@ function initSmoothScroll() {
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll(); // initial update
 
-  // Theme toggle
+  // Theme toggle (theme already set by applyInitialTheme)
   initThemeToggle();
 
   // Smooth scroll for anchor links
   initSmoothScroll();
-
-  // Page transitions
-  initPageTransitions();
 
   I18nModule.subscribe(async (newLang) => {
     await I18nModule.loadContent(newLang);
@@ -979,5 +1236,6 @@ function initSmoothScroll() {
     await renderMembershipIfNeeded();
     await renderScheduleIfNeeded();
     ComponentsModule.initReveal();
+    initAboutHeroMedia(); // re-run in case image changes with language
   });
 })();
